@@ -26,6 +26,7 @@
         <junit-version>5.9.3</junit-version>
         <maven-plugin-version>1.0.0</maven-plugin-version>
         <swaggerDateLibOption>java8</swaggerDateLibOption><!--java8 or yoda or java8-localdatetime-->
+        <start-class>BatchProcessor.java</start-class>
     </properties>
 
     <dependencyManagement>
