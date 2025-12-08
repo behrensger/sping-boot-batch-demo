@@ -1,0 +1,127 @@
+openapi: 3.0.3
+
+info:
+  version: 1.0.0
+  title: File Structure Interface
+  description: File Structure
+
+servers:
+  - url: http://localhost:8080
+    description: Dev-Instance.
+
+paths:
+  /filestructureCreate:
+    post:
+      summary: 'Create a file structure'
+      operationId: createFileStructure
+      requestBody:
+        description: Create a file structure
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateFileStructure'
+      responses:
+        200:
+          $ref: '#/components/responses/Response'
+
+components:
+  schemas:
+    CreateFileStructure:
+      type: object
+      required:
+        - issue
+      properties:
+        issue:
+          type: string
+          example: VOD-42
+          description: Jira Issue ID
+          nullable: false
+        event:
+          type: string
+          example: NoaPplusCreate
+          description: Type of event that happened
+        changes:
+          type: array
+          items:
+            $ref: "#/components/schemas/UpdateAttribute"
+    UpdateRequest:
+      type: object
+      required:
+        - issue
+        - changes
+        - event
+      properties:
+        issue:
+          type: string
+          example: VOD-42
+          description: Jira Isse ID
+          nullable: false
+        event:
+          type: string
+          description: Type of event that happened
+          nullable: false
+        changes:
+          type: array
+          nullable: false
+          items:
+            $ref: "#/components/schemas/UpdateAttribute"
+    UpdateAttribute:
+      type: object
+      description: A data field for an update request
+      properties:
+        field:
+          type: string
+        oldValue:
+          type: string
+        newValue:
+          type: string
+    ErroneousMeasures:
+      type: object
+      properties:
+        measureId:
+          type: number
+        error:
+          type: string
+
+  responses:
+    ManualImportResponse:
+      description: Response for manual import request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              info:
+                type: string
+                nullable: false
+                description: A description of what happened
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ErroneousMeasures'
+
+    Response:
+      description: Generic UpdateResponse
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              info:
+                type: string
+                nullable: false
+                description: A description of what happened
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ErroneousMeasures'
+
+
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+
+security:
+  - BasicAuth: [ ]

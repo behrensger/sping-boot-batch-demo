@@ -1,0 +1,85 @@
+openapi: "3.0.3"
+
+info:
+  title: Keycloak Interface
+  description: This is a REST API reference for the Keycloak Login
+  version: 1.0.0
+
+servers:
+  - url: https://vosima2.dev.networkoverview.vodafone.de/
+    description: Vosima DEV-Login Server
+
+paths:
+  /auth/realms/Vosima/protocol/openid-connect/token:
+    post:
+      tags:
+        - keycloak
+      operationId: requestBearerToken
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+
+components:
+  schemas:
+    TokenRequest:
+      type: object
+      properties:
+        client_id:
+          type: string
+          example: tfw-camunda
+        client_secret:
+          type: string
+          example: 3bd92f97-2e31-4783-aca5-a33e7dbc533d
+        grant_type:
+          type: string
+          example: password
+          enum:
+            - password
+        scope:
+          type: string
+          example: profile
+        username:
+          type: string
+          example: demo-user
+        password:
+          type: string
+          example: demo-password
+
+    TokenResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+        expires_in:
+          type: integer
+          format: int32
+          example: 300
+        refresh_expires_in:
+          type: integer
+          format: int32
+          example: 28800
+        refresh_token:
+          type: string
+        token_type:
+          type: string
+          example: "bearer"
+        not-before-policy:
+          type: integer
+          format: int64
+          example: 1596210110
+        session_state:
+          type: string
+          example: "c247a133-2507-462e-9685-cb5becdde3b3"
+        scope:
+          type: string
+          example: "email profile"

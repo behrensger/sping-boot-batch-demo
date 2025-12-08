@@ -1,0 +1,339 @@
+openapi: 3.0.3
+
+info:
+  version: 0.2.0
+  title: Jira Interface by Catworks
+
+servers:
+  - url: https://demo.extern.catworkx.de/jira_twx_connector/rest/cwx-sol-rest/1.0/sol
+    description: >
+      This is a test instance. It works like the one in production, but is reachable from the internet.
+      [https://de.confluence.agile.vodafone.com/pages/viewpage.action?pageId=112922539&preview=/112922539/131158348/Interfaces_between_Teamworkx_Connector_and_NOA-v11-20210520_145749.pdf]
+  - url: https://localhost:4443/dev01/rest/cwx-sol-rest/1.0/sol
+    description: >
+      This is the DEV01 testing instance.
+
+
+paths:
+  /cwx-sol-rest/1.0/sol/aob/event/form/{EventName}:
+    put:
+      summary: 'Sending an Event to JIRA'
+      operationId: getEvent
+      tags:
+        - get-event
+      parameters:
+        - name: EventName
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/EventName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Form'
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JiraResponse'
+
+  /cwx-sol-rest/1.0/sol/aob/object/detail/attributevalues/{ObjectType}/{ObjectID}:
+    post:
+      summary: Responding to Jira's fetch data request
+      operationId: respondFetchData
+      tags:
+        - respond-fetch-data
+      parameters:
+        - name: ObjectType
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: ObjectID
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateRequest'
+
+  /cwx-sol-rest/1.0/sol/aob/event/attributevalues/create_pplus:
+    put:
+      summary: 'Create a new PPLUS project in Jira'
+      operationId: createNewProject
+      tags:
+        - jira-project
+      requestBody:
+        description: Creates a new Project/Ticket in JIRA
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRequest'
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JiraResponse'
+
+  /cwx-sol-rest/1.0/sol/aob/event/attributevalues/update_pplus:
+    put:
+      summary: 'update a new PPLUS project in Jira'
+      operationId: updateProject
+      tags:
+        - jira-project
+      requestBody:
+        description: Updates an existing Project/Ticket in JIRA
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateRequest'
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JiraResponse'
+
+  /api/2/user/search:
+    get:
+      summary: 'fetch user data based on username'
+      operationId: searchUser
+      tags:
+        - jira-rest
+      parameters:
+        - required: true
+          in: query
+          name: username
+          schema:
+            type: string
+      responses:
+        200:
+          description: 'Returns a record about this user'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserSearchResponse'
+
+components:
+  schemas:
+    CreateRequest:
+      type: object
+      properties:
+        detailattributevalues:
+          type: object
+          nullable: false
+          properties:
+            attributevalues:
+              type: array
+              nullable: false
+              items:
+                $ref: "#/components/schemas/Attribute"
+    UpdateRequest:
+      type: object
+      properties:
+        detailattributevalues:
+          type: object
+          nullable: false
+          properties:
+            attributevalues:
+              type: array
+              nullable: false
+              items:
+                $ref: "#/components/schemas/Attribute"
+    UserSearchResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/UserRecord'
+    UserRecord:
+      type: object
+      properties:
+        self:
+          type: string
+        key:
+          type: string
+        name:
+          type: string
+        emailAddress:
+          type: string
+        displayName:
+          type: string
+        active:
+          type: boolean
+        deleted:
+          type: boolean
+        timeZone:
+          type: string
+        locale:
+          type: string
+        avatarUrls:
+          type: object
+          properties:
+            Model16x16:
+              title: 16x16
+              type: string
+            Model24x24:
+              title: 24x24
+              type: string
+            Model32x32:
+              title: 32x32
+              type: string
+            Model48x48:
+              title: 48x48
+              type: string
+    Attribute:
+      type: object
+      description: a JIRA-Data value. Has a type, name, value and title???
+      required:
+        - attribute
+        - type
+        - title
+        - value
+      properties:
+        attribute:
+          description: The attribute name
+          example: "projectKey"
+          type: string
+        type:
+          description: The type of this attribute
+          example: "string"
+          type: string
+          enum:
+            - "string"
+            - "number"
+            - "array"
+            - "option"
+            - "watches"
+            - "user"
+            - "timetracking"
+            - "progress"
+            - "votes"
+        title:
+          description: well, i would like to know the meaning of these attributes.
+          type: string
+          example: "Project Key"
+        value:
+          description: The actual value of the attribute
+          example: "SD"
+          type: string
+        valuedescription:
+          description: An optional description of the value
+          example: "SD"
+          type: string
+        #position:
+        #    description: An optional position of the value
+        #    example: "0001"
+        #    type: string
+
+    JiraResponse:
+      type: object
+      description: Response of a request
+      properties:
+        messages:
+          type: array
+          nullable: false
+          items:
+            $ref: "#/components/schemas/Message"
+
+    EventName:
+      type: object
+      description: >
+        is a custom event name to trigger create, update or transitioning of issues in Jira.
+        Each event name can be mapped to one or more operations
+      properties:
+        eventname:
+          type: string
+
+    ObjectType:
+      type: object
+      description: >
+        is the type of the object in the remote system. I.E.: If the remote system would be another Jira,
+        the objectType would be issue
+      properties:
+        ObjectType:
+          type: string
+
+    ObjectID:
+      type: object
+      description: >
+        is the id of the object in the remote system.
+        I.E: If the remote system would be another Jira, the object type would be the issue key
+      properties:
+        ObjectID:
+          type: string
+
+    Form:
+      type: object
+      properties:
+        form:
+          type: object
+          items:
+            $ref: "#/components/schemas/FormElements"
+
+    FormElements:
+      type: object
+      properties:
+        identity:
+          example: "EVENT"
+          type: string
+        type:
+          example: "EXTERNAL_EVENT"
+          type: string
+        title:
+          example: "Event form"
+          type: string
+        key:
+          example: "/event/<eventname>"
+          type: string
+        attributevalues:
+          type: array
+          items:
+            $ref: "#/components/schemas/Attribute"
+
+    Message:
+      type: object
+      description: Content of a Result object
+      properties:
+        key:
+          type: string
+          example: "/ISSUE/VOD-165"
+        ident:
+          type: string
+          example: ISSUE_CREATED_SUCCESSFULLY
+        description:
+          type: string
+          example: /ISSUE/VOD-165 has been created successfully
+        type:
+          type: string
+          example: green
+          enum:
+            - green
+            - red
+            - yellow
+
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    header:
+      type: apiKey
+      in: header
+      name: cwx-sol-account
+      description: contains the account id
+
+security:
+  - BasicAuth: [ ]
+  - header: [ ]

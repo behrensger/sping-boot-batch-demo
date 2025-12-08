@@ -39,9 +39,7 @@
                     <groupId>org.junit.vintage</groupId>
                     <artifactId>junit-vintage-engine</artifactId>
                 </exclusion>
-
             </exclusions>
-
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -108,5 +106,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
