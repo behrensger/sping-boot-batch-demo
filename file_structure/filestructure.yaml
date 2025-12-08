@@ -116,12 +116,3 @@ components:
                 type: array
                 items:
                   $ref: '#/components/schemas/ErroneousMeasures'
-
-
-  securitySchemes:
-    BasicAuth:
-      type: http
-      scheme: basic
-
-security:
-  - BasicAuth: [ ]

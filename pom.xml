@@ -20,7 +20,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>17</java.version>
         <maven.compiler.release>17</maven.compiler.release>
-        <spring.boot.version>3.1.4</spring.boot.version>
+        <spring.boot.version>3.5.8</spring.boot.version>
         <swagger-annotations-version>2.1.20</swagger-annotations-version>
         <jackson-version>2.15.2</jackson-version>
         <junit-version>5.9.3</junit-version>
@@ -112,11 +112,7 @@
             </dependency>
 
             <!-- swagger related stuff -->
-            <dependency>
-                <groupId>io.swagger.core.v3</groupId>
-                <artifactId>swagger-annotations</artifactId>
-                <version>${swagger-annotations-version}</version>
-            </dependency>
+
 
             <dependency>
                 <groupId>io.swagger.core.v3</groupId>
