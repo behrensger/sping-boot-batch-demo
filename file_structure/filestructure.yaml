@@ -10,79 +10,37 @@ servers:
     description: Dev-Instance.
 
 paths:
-  /filestructureCreate:
+  /userCreate:
     post:
-      summary: 'Create a file structure'
-      operationId: createFileStructure
+      summary: 'Create a user structure'
+      operationId: createUserStructure
       requestBody:
-        description: Create a file structure
+        description: Create a user structure
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateFileStructure'
+              $ref: '#/components/schemas/CreateUserStructure'
       responses:
         200:
           $ref: '#/components/responses/Response'
 
 components:
   schemas:
-    CreateFileStructure:
+    CreateUserStructure:
       type: object
       required:
         - issue
       properties:
-        issue:
+        username:
           type: string
-          example: VOD-42
-          description: Jira Issue ID
           nullable: false
-        event:
-          type: string
-          example: NoaPplusCreate
-          description: Type of event that happened
-        changes:
-          type: array
-          items:
-            $ref: "#/components/schemas/UpdateAttribute"
-    UpdateRequest:
-      type: object
-      required:
-        - issue
-        - changes
-        - event
-      properties:
-        issue:
-          type: string
-          example: VOD-42
-          description: Jira Isse ID
+        userId:
+          type: integer
           nullable: false
-        event:
+        transactionDate:
           type: string
-          description: Type of event that happened
-          nullable: false
-        changes:
-          type: array
-          nullable: false
-          items:
-            $ref: "#/components/schemas/UpdateAttribute"
-    UpdateAttribute:
-      type: object
-      description: A data field for an update request
-      properties:
-        field:
-          type: string
-        oldValue:
-          type: string
-        newValue:
-          type: string
-    ErroneousMeasures:
-      type: object
-      properties:
-        measureId:
-          type: number
-        error:
-          type: string
+          format: date-time
 
   responses:
     ManualImportResponse:
@@ -96,10 +54,6 @@ components:
                 type: string
                 nullable: false
                 description: A description of what happened
-              errors:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ErroneousMeasures'
 
     Response:
       description: Generic UpdateResponse
@@ -112,7 +66,3 @@ components:
                 type: string
                 nullable: false
                 description: A description of what happened
-              errors:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ErroneousMeasures'
