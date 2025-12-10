@@ -32,6 +32,9 @@ public class SpringBatchConfig {
     @Value("input/record.csv")
     private Resource inputCsv;
 
+    @Value("input/recordWithInvalidData.csv")
+    private Resource invalidInputCsv;
+
     @Value("file:xml/output.xml")
     private WritableResource outputXml;
 
