@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class RecordFieldSetMapper implements FieldSetMapper<Transaction> {
-    public Transaction mapFieldSet(@NotNull FieldSet fieldSet) {
+    public Transaction mapFieldSet(FieldSet fieldSet) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyy");
         Transaction transaction = new Transaction();
 

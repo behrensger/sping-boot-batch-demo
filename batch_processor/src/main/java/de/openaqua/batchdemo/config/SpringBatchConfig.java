@@ -2,6 +2,7 @@ package de.openaqua.batchdemo.config;
 
 import de.openaqua.batchdemo.database.RecordFieldSetMapper;
 import de.openaqua.batchdemo.database.Transaction;
+import de.openaqua.batchdemo.main.CustomItemProcessor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
@@ -21,11 +22,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.WritableResource;
 import org.springframework.oxm.Marshaller;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.transaction.PlatformTransactionManager;
-
-import java.net.MalformedURLException;
 
 @Profile("spring")
 public class SpringBatchConfig {
@@ -33,11 +33,10 @@ public class SpringBatchConfig {
     private Resource inputCsv;
 
     @Value("file:xml/output.xml")
-    private Resource outputXml;
+    private WritableResource outputXml;
 
     @Bean
-    public ItemReader<Transaction> itemReader()
-            throws UnexpectedInputException, ParseException {
+    public ItemReader<Transaction> itemReader() throws UnexpectedInputException, ParseException {
         FlatFileItemReader<Transaction> reader = new FlatFileItemReader<>();
         DelimitedLineTokenizer tokenizer = new DelimitedLineTokenizer();
         String[] tokens = {"username", "userid", "transactiondate", "amount"};
@@ -56,10 +55,8 @@ public class SpringBatchConfig {
     }
 
     @Bean
-    public ItemWriter<Transaction> itemWriter(Marshaller marshaller)
-            throws MalformedURLException {
-        StaxEventItemWriter<Transaction> itemWriter =
-                new StaxEventItemWriter<Transaction>();
+    public ItemWriter<Transaction> itemWriter(Marshaller marshaller) {
+        StaxEventItemWriter<Transaction> itemWriter = new StaxEventItemWriter<>();
         itemWriter.setMarshaller(marshaller);
         itemWriter.setRootTagName("transactionRecord");
         itemWriter.setResource(outputXml);
@@ -80,7 +77,10 @@ public class SpringBatchConfig {
                          ItemWriter<Transaction> writer) {
         return new StepBuilder("step1", jobRepository)
                 .<Transaction, Transaction>chunk(10, transactionManager)
-                .reader(reader).processor(processor).writer(writer).build();
+                .reader(reader)
+                .processor(processor)
+                .writer(writer)
+                .build();
     }
 
     @Bean(name = "firstBatchJob")
