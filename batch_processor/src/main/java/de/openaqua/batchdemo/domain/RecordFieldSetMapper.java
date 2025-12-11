@@ -1,14 +1,15 @@
-package de.openaqua.batchdemo.database;
+package de.openaqua.batchdemo.domain;
 
-import org.jetbrains.annotations.NotNull;
 import org.springframework.batch.item.file.mapping.FieldSetMapper;
 import org.springframework.batch.item.file.transform.FieldSet;
+import org.springframework.boot.context.properties.bind.BindException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class RecordFieldSetMapper implements FieldSetMapper<Transaction> {
-    public Transaction mapFieldSet(FieldSet fieldSet) {
+
+    public Transaction mapFieldSet(FieldSet fieldSet) throws BindException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyy");
         Transaction transaction = new Transaction();
 

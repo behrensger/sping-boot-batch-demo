@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class BatchJob {
     SpringBatchConfig config;
-    @Autowired
-    Job firstBatchJob = SpringBatchConfig.job(JobRepository jobRepository, Step step1);
+    //@Autowired
+    //Job firstBatchJob = SpringBatchConfig.job(JobRepository jobRepository, Step step1);
 
 
 

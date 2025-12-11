@@ -1,0 +1,5 @@
+file:
+  input: input/record-test.csv
+  input-error: input/recordWithInvalidData-test.csv
+  output: output/record-test.xml
+  output-error: output/recordWithInvalidData-test.xml

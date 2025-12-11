@@ -25,3 +25,4 @@ replay_pid*
 /.idea/*
 /batch_processor/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
 /file_structure/target/*
+/batch_processor/target/*

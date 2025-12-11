@@ -1,8 +1,4 @@
-package de.openaqua.batchdemo.database;
-
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+package de.openaqua.batchdemo.domain;
 
 import java.time.LocalDateTime;
 
@@ -16,5 +12,4 @@ public class Transaction {
     private int userId;
     private LocalDateTime transactionDate;
     private double amount;
-
 }
