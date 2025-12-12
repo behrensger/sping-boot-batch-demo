@@ -1,5 +1,9 @@
 package de.openaqua.batchdemo.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.time.LocalDateTime;
 
 @SuppressWarnings("restriction")

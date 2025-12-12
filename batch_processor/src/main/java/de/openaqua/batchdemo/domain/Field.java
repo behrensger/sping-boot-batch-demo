@@ -16,4 +16,6 @@ public class Field {
     private int userId;
     private LocalDateTime transactionDate;
     private double amount;
+    private FieldType type;
+
 }

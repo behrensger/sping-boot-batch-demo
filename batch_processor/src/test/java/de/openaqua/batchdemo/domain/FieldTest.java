@@ -16,11 +16,14 @@ class FieldTest {
                 .username("username")
                 .amount(101)
                 .transactionDate(getTestDate())
+                .type(FieldType.INPUT)
                 .build();
         assertEquals(100, f.getUserId());
         assertEquals("username", f.getUsername());
         assertEquals(101, f.getAmount());
         assertEquals(getTestDate(), f.getTransactionDate());
+        assertEquals(FieldType.INPUT, f.getType());
+
 
     }
 

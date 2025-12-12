@@ -281,12 +281,12 @@
                         <excludes>
                             <exclude/>
                         </excludes>
-                        <systemProperties>
+                        <systemPropertyVariables>
                             <property>
                                 <name>loggerPath</name>
                                 <value>conf/log4j.properties</value>
                             </property>
-                        </systemProperties>
+                        </systemPropertyVariables>
                         <argLine>@{argLine} -Xms512m -Xmx1500m</argLine>
                         <parallel>methods</parallel>
                         <forkCount>4</forkCount>
