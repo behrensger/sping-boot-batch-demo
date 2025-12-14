@@ -16,6 +16,7 @@ class SpringBatchConfigTest {
         basicTest(appConfiguration.flatFileItemReader());
     }
 
+
 /*
     @Test
     public void givenItems_whenFailed_thenRestartFromFailure() throws Exception {
