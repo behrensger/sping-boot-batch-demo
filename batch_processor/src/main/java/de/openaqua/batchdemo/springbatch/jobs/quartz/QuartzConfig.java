@@ -3,7 +3,7 @@ package de.openaqua.batchdemo.springbatch.jobs.quartz;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.quartz.SchedulerFactoryBean;
+//import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 
 import static org.quartz.JobBuilder.newJob;
 
@@ -58,7 +58,7 @@ public class QuartzConfig {
                 .withSchedule(CronScheduleBuilder.cronSchedule("0/15 * * * * ?"))
                 .build();
     }
-
+/*
     @Bean
     public SchedulerFactoryBean schedulerFactoryBean() {
         SchedulerFactoryBean schedulerFactory = new SchedulerFactoryBean();
@@ -66,5 +66,7 @@ public class QuartzConfig {
         schedulerFactory.setTriggers(job1Trigger(job1Detail()), job2Trigger(job2Detail()));
         return schedulerFactory;
     }
+
+ */
 
 }
