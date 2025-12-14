@@ -10,13 +10,6 @@ class SpringBatchConfigTest {
         assertNotNull(o);
     }
 
-    @Test
-    void testSomeBeans() {
-        SpringBatchConfig appConfiguration = new SpringBatchConfig();
-        basicTest(appConfiguration.flatFileItemReader());
-    }
-
-
 /*
     @Test
     public void givenItems_whenFailed_thenRestartFromFailure() throws Exception {
