@@ -27,7 +27,6 @@
         <maven-plugin-version>1.0.0</maven-plugin-version>
         <swaggerDateLibOption>java8</swaggerDateLibOption><!--java8 or yoda or java8-localdatetime-->
         <start-class>BatchProcessor.java</start-class>
-        <kotlin.version>2.2.0</kotlin.version>
     </properties>
 
     <dependencyManagement>
@@ -128,21 +127,6 @@
 
         </dependencies>
     </dependencyManagement>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib-jdk8</artifactId>
-            <version>${kotlin.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-test</artifactId>
-            <version>${kotlin.version}</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-
 
     <build>
         <plugins>
