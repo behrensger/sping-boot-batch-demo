@@ -3,7 +3,7 @@ package de.openaqua.batchdemo.service;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import de.openaqua.batchdemo.model.Transaction;
+import de.openaqua.batchdemo.domain.Transaction;
 import org.springframework.batch.item.file.mapping.FieldSetMapper;
 import org.springframework.batch.item.file.transform.FieldSet;
 

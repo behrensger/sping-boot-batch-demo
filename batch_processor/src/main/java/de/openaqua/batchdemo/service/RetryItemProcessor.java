@@ -1,6 +1,6 @@
 package de.openaqua.batchdemo.service;
 
-import de.openaqua.batchdemo.model.Transaction;
+import de.openaqua.batchdemo.domain.Transaction;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;

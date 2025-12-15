@@ -1,8 +1,7 @@
-package de.openaqua.batchdemo.model;
+package de.openaqua.batchdemo.domain;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 

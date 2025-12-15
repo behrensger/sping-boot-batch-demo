@@ -1,4 +1,4 @@
-package de.openaqua.batchdemo.model;
+package de.openaqua.batchdemo.domain;
 
 import jakarta.xml.bind.annotation.XmlRootElement;
 import lombok.Getter;
